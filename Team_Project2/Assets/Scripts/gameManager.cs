@@ -137,8 +137,13 @@ public class gameManager : MonoBehaviour
             firstCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
 			secondCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
             FailMatch();
-  
-            firstCard.GetComponent<card>().closeCard();
+
+			nameTxt_name.text = "½ÇÆÐ!";
+			nameChk = true;
+			curTime = time;
+			nameTxt.SetActive(true);
+
+			firstCard.GetComponent<card>().closeCard();
 			secondCard.GetComponent<card>().closeCard();
 		}
 
