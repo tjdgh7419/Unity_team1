@@ -12,8 +12,9 @@ public class gameManager : MonoBehaviour
 {
 	public float maxTime = 60f;
 	public float currentTime;
-
-    public AudioClip correctSound;
+	public GameObject nameTxt;
+	public Text nameTxt_name;
+	public AudioClip correctSound;
     public AudioClip incorrectSound;
     public AudioSource audioSource;
 	public GameObject endTxt;
@@ -23,10 +24,12 @@ public class gameManager : MonoBehaviour
     public Text timeTxt;
 	public static gameManager I;
 	public bool isMatching;
+	public float time;
+	bool nameChk = false;
+	float curTime = 0;
 
 
-
-    void Awake()
+	void Awake()
 	{
 		I = this;
 	}
@@ -59,6 +62,7 @@ public class gameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		time -= Time.deltaTime;
 		if (!isMatching)
 		{
 			// 시간이 0보다 크면 제한 시간을 감소시킴
@@ -72,6 +76,11 @@ public class gameManager : MonoBehaviour
 				// 시간이 다 되면 게임 오버 처리
 				GameOver();
 			}
+		}
+
+		if (nameChk && (curTime - 1f > time))
+		{
+			nameTxt.SetActive(false);
 		}
 	}
     private void UpdateTimeText()
@@ -93,7 +102,29 @@ public class gameManager : MonoBehaviour
 
 			int cardsLeft = GameObject.Find("cards").transform.childCount;
 
-			if(cardsLeft == 2)
+			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
+			{
+				nameTxt_name.text = "강성호";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+			else if (firstCardImage[4] - '0' >= 3 && firstCardImage[4] - '0' < 6)
+			{
+				nameTxt_name.text = "박정우";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+			else if (firstCardImage[4] - '0' >= 6 && firstCardImage[4] - '0' < 9)
+			{
+				nameTxt_name.text = "박종수";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+
+			if (cardsLeft == 2)
 			{
 				Time.timeScale = 0f;
 				endTxt.SetActive(true);
