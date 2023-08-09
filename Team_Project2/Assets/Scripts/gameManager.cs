@@ -25,8 +25,7 @@ public class gameManager : MonoBehaviour
 	public bool isMatching;
 
 
-
-    void Awake()
+	void Awake()
 	{
 		I = this;
 	}
@@ -61,6 +60,7 @@ public class gameManager : MonoBehaviour
 	{
 		if (!isMatching)
 		{
+			 
 			// 시간이 0보다 크면 제한 시간을 감소시킴
 			if (currentTime > 0f)
 			{
@@ -71,6 +71,11 @@ public class gameManager : MonoBehaviour
 			{
 				// 시간이 다 되면 게임 오버 처리
 				GameOver();
+			}
+			// 20초 이상 지나면 시간이 빨갛게 변하는 기능
+			if (currentTime <= 20f)
+			{
+				timeTxt.color = Color.red;
 			}
 		}
 	}
