@@ -208,7 +208,7 @@ public class gameManager : MonoBehaviour
 			float y = (i / 4) * 1.4f - 2.0f;
 			newCard.transform.position = new Vector3(x, y, 0);
 
-			string rtanName = "rtan" + rtans[i].ToString();
+			string rtanName = "team" + rtans[i].ToString();
 			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
 		}
 	}
@@ -228,7 +228,7 @@ public class gameManager : MonoBehaviour
 			float y = (i % 4) * 1.4f - 4.0f;
 			newCard.transform.position = new Vector3(x, y, 0);
 
-			string rtanName = "rtan" + rtans[i].ToString();
+			string rtanName = "team" + rtans[i].ToString();
 			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
 		}
 	}
@@ -244,12 +244,12 @@ public class gameManager : MonoBehaviour
 			GameObject newCard = Instantiate(card);
 			newCard.transform.parent = GameObject.Find("cards").transform;
 			newCard.transform.Find("back").transform.localScale = new Vector3(0.8f, 0.8f, 1f);
-			newCard.transform.Find("front").transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+			newCard.transform.Find("front").transform.localScale = new Vector3(0.17f, 0.17f, 1f);
 			float x = (i / 4) * 1.1f - 2.2f;
 			float y = (i % 4) * 1.1f - 2.8f;
 			newCard.transform.position = new Vector3(x, y, 0);
 
-			string rtanName = "rtan" + rtans[i].ToString();
+			string rtanName = "team" + rtans[i].ToString();
 			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
 		}
 	}
