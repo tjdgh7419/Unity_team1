@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class levelBtn : MonoBehaviour
+public class levelManager : MonoBehaviour
 {
+	public GameObject easy;
+	public GameObject normal;
+	bool chk = false;
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		easy.gameObject.SetActive(true);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		
+	
 	}
 	//난이도 설정
 	public void EasyStart()
@@ -31,4 +34,5 @@ public class levelBtn : MonoBehaviour
 	{ 
 		PlayerPrefs.SetInt("level", 3);
 	}
+	
 }
