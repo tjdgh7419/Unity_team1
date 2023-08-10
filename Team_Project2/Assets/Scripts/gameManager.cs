@@ -23,7 +23,7 @@ public class gameManager : MonoBehaviour
     public GameObject card;
     public Text timeTxt;
 	public Text clickTxt;
-	public int score=0;
+	float click=0;
     public static gameManager I;
 	public bool isMatching;
 
@@ -89,6 +89,10 @@ public class gameManager : MonoBehaviour
 		string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 		string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
+
+		click += 1;
+		clickTxt.text = click.ToString("");
+
 		if (firstCardImage == secondCardImage) 
 		{
             audioSource.PlayOneShot(correctSound); //�������� ���� �߰�
@@ -96,15 +100,7 @@ public class gameManager : MonoBehaviour
 			secondCard.GetComponent<card>().destroyCard();
 
             //click += 1;
-            //clickTxt.text = click.ToString(""); 
-            {
-
-                clickTxt.text = score.ToString("");
-                if (Input.GetMouseButtonDown(0))
-                {
-                    score += 1;
-                }
-            }
+            //clickTxt.text = click.ToString("");
 
             int cardsLeft = GameObject.Find("cards").transform.childCount;
 
