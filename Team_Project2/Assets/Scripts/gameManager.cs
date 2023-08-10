@@ -27,11 +27,9 @@ public class gameManager : MonoBehaviour
 	float click=0;
     public static gameManager I;
 	public bool isMatching;
-	
 	public float time;
 	bool nameChk = false;
 	float curTime = 0;
-
 	public int level = 1;
 
 
@@ -149,7 +147,8 @@ public class gameManager : MonoBehaviour
 			{
 				Time.timeScale = 0f;
 				endTxt.SetActive(true);
-
+				PlayerPrefs.SetFloat("curtime", currentTime);
+				PlayerPrefs.SetFloat("click", click);
 			}
 		}
 
