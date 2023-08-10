@@ -865,6 +865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 60
   currentTime: 0
+  nameTxt: {fileID: 0}
+  nameTxt_name: {fileID: 0}
   correctSound: {fileID: 8300000, guid: c52d50e4883d9b84caac19ca4742215f, type: 3}
   incorrectSound: {fileID: 8300000, guid: e095f14f1d8f45a4ea8d43482f87de50, type: 3}
   audioSource: {fileID: 1904806442}
@@ -874,6 +876,7 @@ MonoBehaviour:
   card: {fileID: 8335395054625029305, guid: bdb20e20fbb13e74a9b0bb73fa93ac24, type: 3}
   timeTxt: {fileID: 217845304}
   isMatching: 0
+  time: 0
 --- !u!4 &1904806441
 Transform:
   m_ObjectHideFlags: 0

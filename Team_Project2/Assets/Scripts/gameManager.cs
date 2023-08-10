@@ -12,8 +12,9 @@ public class gameManager : MonoBehaviour
 {
 	public float maxTime = 60f;
 	public float currentTime;
-
-    public AudioClip correctSound;
+	public GameObject nameTxt;
+	public Text nameTxt_name;
+	public AudioClip correctSound;
     public AudioClip incorrectSound;
     public AudioSource audioSource;
 	public GameObject endTxt;
@@ -23,6 +24,9 @@ public class gameManager : MonoBehaviour
     public Text timeTxt;
 	public static gameManager I;
 	public bool isMatching;
+	public float time;
+	bool nameChk = false;
+	float curTime = 0;
 
 
 	void Awake()
@@ -58,6 +62,7 @@ public class gameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		time -= Time.deltaTime;
 		if (!isMatching)
 		{
 			 
@@ -77,6 +82,11 @@ public class gameManager : MonoBehaviour
 			{
 				timeTxt.color = Color.red;
 			}
+		}
+
+		if (nameChk && (curTime - 1f > time))
+		{
+			nameTxt.SetActive(false);
 		}
 	}
     private void UpdateTimeText()
@@ -98,7 +108,29 @@ public class gameManager : MonoBehaviour
 
 			int cardsLeft = GameObject.Find("cards").transform.childCount;
 
-			if(cardsLeft == 2)
+			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
+			{
+				nameTxt_name.text = "강성호";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+			else if (firstCardImage[4] - '0' >= 3 && firstCardImage[4] - '0' < 6)
+			{
+				nameTxt_name.text = "박정우";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+			else if (firstCardImage[4] - '0' >= 6 && firstCardImage[4] - '0' < 9)
+			{
+				nameTxt_name.text = "박종수";
+				nameChk = true;
+				curTime = time;
+				nameTxt.SetActive(true);
+			}
+
+			if (cardsLeft == 2)
 			{
 				Time.timeScale = 0f;
 				endTxt.SetActive(true);
@@ -111,8 +143,13 @@ public class gameManager : MonoBehaviour
             firstCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
 			secondCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
             FailMatch();
-  
-            firstCard.GetComponent<card>().closeCard();
+
+			nameTxt_name.text = "실패!";
+			nameChk = true;
+			curTime = time;
+			nameTxt.SetActive(true);
+
+			firstCard.GetComponent<card>().closeCard();
 			secondCard.GetComponent<card>().closeCard();
 		}
 
