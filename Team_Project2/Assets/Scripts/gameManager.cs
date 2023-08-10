@@ -125,21 +125,21 @@ public class gameManager : MonoBehaviour
 
 			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
 			{
-				nameTxt_name.text = "����ȣ";
+				nameTxt_name.text = "Kang Sungho";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
 			}
 			else if (firstCardImage[4] - '0' >= 3 && firstCardImage[4] - '0' < 6)
 			{
-				nameTxt_name.text = "������";
+				nameTxt_name.text = "Park Jungwoo";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
 			}
 			else if (firstCardImage[4] - '0' >= 6 && firstCardImage[4] - '0' < 9)
 			{
-				nameTxt_name.text = "������";
+				nameTxt_name.text = "Park Jongsoo";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
@@ -160,7 +160,7 @@ public class gameManager : MonoBehaviour
 			secondCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
             FailMatch();
 
-			nameTxt_name.text = "����!";
+			nameTxt_name.text = "Baka!";
 			nameChk = true;
 			curTime = time;
 			nameTxt.SetActive(true);
