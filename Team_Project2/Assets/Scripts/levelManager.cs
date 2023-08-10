@@ -7,11 +7,12 @@ public class levelManager : MonoBehaviour
 {
 	public GameObject easy;
 	public GameObject normal;
+	public GameObject hard;
 	bool chk = false;
 	// Start is called before the first frame update
-	void Start()
+	void Start() 
 	{
-		easy.gameObject.SetActive(true);
+		
 	}
 
 	// Update is called once per frame
@@ -23,16 +24,25 @@ public class levelManager : MonoBehaviour
 	public void EasyStart()
 	{
 		PlayerPrefs.SetInt("level", 1);
+		normal.SetActive(false);
+		hard.SetActive(false);
+		easy.SetActive(true);
 	}
 
 	public void NormalStart()
 	{
 		PlayerPrefs.SetInt("level", 2);
+		easy.SetActive(false);
+		hard.SetActive(false);
+		normal.SetActive(true);
 	}
 
 	public void HardStart()
 	{ 
 		PlayerPrefs.SetInt("level", 3);
+		easy.SetActive(false);
+		normal.SetActive(false);
+		hard.SetActive(true);
 	}
 	
 }
