@@ -28,10 +28,9 @@ public class gameManager : MonoBehaviour
 	public bool isMatching;
 	public int level = 1;
 
-
-    void Awake()
+	void Awake()
 	{
-		//³­ÀÌµµÀÇ Á¤º¸°ªÀ» ¹Þ¾Æ¼­ ·¹º§ÀÇ °ª º¯È­
+		//ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È­
 		if (PlayerPrefs.HasKey("level"))
 		{
 			level = PlayerPrefs.GetInt("level");
@@ -46,7 +45,7 @@ public class gameManager : MonoBehaviour
         UpdateTimeText();
 
         Time.timeScale = 1.0f;
-		// level°ª¿¡ µû¸¥ ³­ÀÌµµ ¹è¿­ ¼³Á¤
+		// levelï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½
 		if (level == 1)
 		{
 			EasyStage();
@@ -68,7 +67,7 @@ public class gameManager : MonoBehaviour
 
         if (!isMatching)
 		{
-			// ï¿½Ã°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å´
+
 			if (currentTime > 0f)
 			{
 				currentTime -= Time.deltaTime;
@@ -78,6 +77,11 @@ public class gameManager : MonoBehaviour
 			{
 				// ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				GameOver();
+			}
+			// 20ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
+			if (currentTime <= 20f)
+			{
+				timeTxt.color = Color.red;
 			}
 		}
 	}
