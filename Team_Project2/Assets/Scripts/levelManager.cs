@@ -8,7 +8,6 @@ public class levelManager : MonoBehaviour
 	public GameObject easy;
 	public GameObject normal;
 	public GameObject hard;
-	bool chk = false;
 	// Start is called before the first frame update
 	void Start() 
 	{
