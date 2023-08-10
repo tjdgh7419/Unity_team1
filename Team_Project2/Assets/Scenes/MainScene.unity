@@ -875,6 +875,7 @@ MonoBehaviour:
   secondCard: {fileID: 0}
   card: {fileID: 8335395054625029305, guid: bdb20e20fbb13e74a9b0bb73fa93ac24, type: 3}
   timeTxt: {fileID: 217845304}
+  clickTxt: {fileID: 0}
   isMatching: 0
   time: 0
 --- !u!4 &1904806441

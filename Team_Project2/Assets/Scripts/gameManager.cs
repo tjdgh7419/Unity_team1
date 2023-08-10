@@ -7,6 +7,7 @@ using System.Linq;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class gameManager : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class gameManager : MonoBehaviour
 	public GameObject secondCard;
     public GameObject card;
     public Text timeTxt;
-	public static gameManager I;
+	public Text clickTxt;
+	float click=0;
+    public static gameManager I;
 	public bool isMatching;
 	
 	public float time;
@@ -65,13 +68,12 @@ public class gameManager : MonoBehaviour
 		
     }
 
-	// Update is called once per frame
 	void Update()
 	{
 		time -= Time.deltaTime;
 		if (!isMatching)
 		{
-			 
+
 			// �ð��� 0���� ũ�� ���� �ð��� ���ҽ�Ŵ
 			if (currentTime > 0f)
 			{
@@ -106,13 +108,20 @@ public class gameManager : MonoBehaviour
 		string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 		string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
+
+		click += 1;
+		clickTxt.text = click.ToString("");
+
 		if (firstCardImage == secondCardImage) 
 		{
             audioSource.PlayOneShot(correctSound); //�������� ���� �߰�
             firstCard.GetComponent<card>().destroyCard();
 			secondCard.GetComponent<card>().destroyCard();
 
-			int cardsLeft = GameObject.Find("cards").transform.childCount;
+            //click += 1;
+            //clickTxt.text = click.ToString("");
+
+            int cardsLeft = GameObject.Find("cards").transform.childCount;
 
 			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
 			{
@@ -140,6 +149,7 @@ public class gameManager : MonoBehaviour
 			{
 				Time.timeScale = 0f;
 				endTxt.SetActive(true);
+
 			}
 		}
 

@@ -12,6 +12,7 @@ MonoImporter:
   - secondCard: {instanceID: 0}
   - card: {instanceID: 0}
   - timeTxt: {instanceID: 0}
+  - clickTxt: {fileID: 1979518656504347391, guid: 9e70fa316bc2448de9bd61931213c39d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
