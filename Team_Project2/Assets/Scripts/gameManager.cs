@@ -24,13 +24,21 @@ public class gameManager : MonoBehaviour
     public Text timeTxt;
 	public static gameManager I;
 	public bool isMatching;
+	
 	public float time;
 	bool nameChk = false;
 	float curTime = 0;
 
+	public int level = 1;
+
 
 	void Awake()
 	{
+		//ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È­
+		if (PlayerPrefs.HasKey("level"))
+		{
+			level = PlayerPrefs.GetInt("level");
+		}
 		I = this;
 	}
 	// Start is called before the first frame update
@@ -41,22 +49,20 @@ public class gameManager : MonoBehaviour
         UpdateTimeText();
 
         Time.timeScale = 1.0f;
-		int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
-
-		rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
-
-		for (int i = 0; i < 16; i++)
+		// levelï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½
+		if (level == 1)
 		{
-			GameObject newCard = Instantiate(card);
-			newCard.transform.parent = GameObject.Find("cards").transform;
-
-			float x = (i / 4) * 1.4f - 2.1f;
-			float y = (i % 4) * 1.4f - 3.0f;
-			newCard.transform.position = new Vector3(x, y, 0);
-
-			string rtanName = "rtan" + rtans[i].ToString();
-			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
+			EasyStage();
 		}
+		else if (level == 2)
+		{
+			NormalStage();
+		}
+		else
+		{
+			HardStage();
+		}
+		
     }
 
 	// Update is called once per frame
@@ -66,7 +72,7 @@ public class gameManager : MonoBehaviour
 		if (!isMatching)
 		{
 			 
-			// ½Ã°£ÀÌ 0º¸´Ù Å©¸é Á¦ÇÑ ½Ã°£À» °¨¼Ò½ÃÅ´
+			// ï¿½Ã°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å´
 			if (currentTime > 0f)
 			{
 				currentTime -= Time.deltaTime;
@@ -74,10 +80,10 @@ public class gameManager : MonoBehaviour
 			}
 			else
 			{
-				// ½Ã°£ÀÌ ´Ù µÇ¸é °ÔÀÓ ¿À¹ö Ã³¸®
+				// ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				GameOver();
 			}
-			// 20ÃÊ ÀÌ»ó Áö³ª¸é ½Ã°£ÀÌ »¡°²°Ô º¯ÇÏ´Â ±â´É
+			// 20ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 			if (currentTime <= 20f)
 			{
 				timeTxt.color = Color.red;
@@ -102,7 +108,7 @@ public class gameManager : MonoBehaviour
 
 		if (firstCardImage == secondCardImage) 
 		{
-            audioSource.PlayOneShot(correctSound); //¸ÂÃèÀ»¶§ »ç¿îµå Ãß°¡
+            audioSource.PlayOneShot(correctSound); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             firstCard.GetComponent<card>().destroyCard();
 			secondCard.GetComponent<card>().destroyCard();
 
@@ -110,21 +116,21 @@ public class gameManager : MonoBehaviour
 
 			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
 			{
-				nameTxt_name.text = "°­¼ºÈ£";
+				nameTxt_name.text = "ï¿½ï¿½ï¿½ï¿½È£";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
 			}
 			else if (firstCardImage[4] - '0' >= 3 && firstCardImage[4] - '0' < 6)
 			{
-				nameTxt_name.text = "¹ÚÁ¤¿ì";
+				nameTxt_name.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
 			}
 			else if (firstCardImage[4] - '0' >= 6 && firstCardImage[4] - '0' < 9)
 			{
-				nameTxt_name.text = "¹ÚÁ¾¼ö";
+				nameTxt_name.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 				nameChk = true;
 				curTime = time;
 				nameTxt.SetActive(true);
@@ -139,12 +145,12 @@ public class gameManager : MonoBehaviour
 
 		else
 		{
-            audioSource.PlayOneShot(incorrectSound); //Æ²·ÈÀ»¶§ »ç¿îµå Ãß°¡
+            audioSource.PlayOneShot(incorrectSound); //Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             firstCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
 			secondCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
             FailMatch();
 
-			nameTxt_name.text = "½ÇÆÐ!";
+			nameTxt_name.text = "ï¿½ï¿½ï¿½ï¿½!";
 			nameChk = true;
 			curTime = time;
 			nameTxt.SetActive(true);
@@ -157,7 +163,7 @@ public class gameManager : MonoBehaviour
 		secondCard = null;
 	}
 
-    public void FailMatch() //¸ÂÃß±â ½ÇÆÐÇßÀ»¶§ÀÇ ¸Þ¼Òµå
+    public void FailMatch() //ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     {
         isMatching = true;
         currentTime -= 3f;
@@ -177,4 +183,64 @@ public class gameManager : MonoBehaviour
 
     }
 
+	public void EasyStage()
+	{
+		int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
+
+		rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+
+		for (int i = 0; i < 12; i++)
+		{
+			GameObject newCard = Instantiate(card);
+			newCard.transform.parent = GameObject.Find("cards").transform;
+
+			float x = (i % 4) * 1.4f - 2.1f;
+			float y = (i / 4) * 1.4f - 2.0f;
+			newCard.transform.position = new Vector3(x, y, 0);
+
+			string rtanName = "rtan" + rtans[i].ToString();
+			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
+		}
+	}
+
+	public void NormalStage()
+	{
+		int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+
+		rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+
+		for (int i = 0; i < 16; i++)
+		{
+			GameObject newCard = Instantiate(card);
+			newCard.transform.parent = GameObject.Find("cards").transform;
+
+			float x = (i / 4) * 1.4f - 2.1f;
+			float y = (i % 4) * 1.4f - 4.0f;
+			newCard.transform.position = new Vector3(x, y, 0);
+
+			string rtanName = "rtan" + rtans[i].ToString();
+			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
+		}
+	}
+
+	public void HardStage()
+	{
+		int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 0, 0, 1, 1 };
+
+		rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+
+		for (int i = 0; i < 20; i++)
+		{
+			GameObject newCard = Instantiate(card);
+			newCard.transform.parent = GameObject.Find("cards").transform;
+			newCard.transform.Find("back").transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+			newCard.transform.Find("front").transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+			float x = (i / 4) * 1.1f - 2.2f;
+			float y = (i % 4) * 1.1f - 2.8f;
+			newCard.transform.position = new Vector3(x, y, 0);
+
+			string rtanName = "rtan" + rtans[i].ToString();
+			newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
+		}
+	}
 }
