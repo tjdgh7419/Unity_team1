@@ -7,14 +7,14 @@ using System.Linq;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class gameManager : MonoBehaviour
 {
 	public float maxTime = 60f;
 	public float currentTime;
-	public GameObject nameTxt;
-	public Text nameTxt_name;
-	public AudioClip correctSound;
+
+    public AudioClip correctSound;
     public AudioClip incorrectSound;
     public AudioSource audioSource;
 	public GameObject endTxt;
@@ -22,14 +22,14 @@ public class gameManager : MonoBehaviour
 	public GameObject secondCard;
     public GameObject card;
     public Text timeTxt;
-	public static gameManager I;
+	public Text clickTxt;
+	float click=0;
+    public static gameManager I;
 	public bool isMatching;
-	public float time;
-	bool nameChk = false;
-	float curTime = 0;
 
 
-	void Awake()
+
+    void Awake()
 	{
 		I = this;
 	}
@@ -59,14 +59,13 @@ public class gameManager : MonoBehaviour
 		}
     }
 
-	// Update is called once per frame
-	void Update()
-	{
-		time -= Time.deltaTime;
-		if (!isMatching)
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (!isMatching)
 		{
-			 
-			// ½Ã°£ÀÌ 0º¸´Ù Å©¸é Á¦ÇÑ ½Ã°£À» °¨¼Ò½ÃÅ´
+			// ï¿½Ã°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å´
 			if (currentTime > 0f)
 			{
 				currentTime -= Time.deltaTime;
@@ -74,19 +73,9 @@ public class gameManager : MonoBehaviour
 			}
 			else
 			{
-				// ½Ã°£ÀÌ ´Ù µÇ¸é °ÔÀÓ ¿À¹ö Ã³¸®
+				// ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				GameOver();
 			}
-			// 20ÃÊ ÀÌ»ó Áö³ª¸é ½Ã°£ÀÌ »¡°²°Ô º¯ÇÏ´Â ±â´É
-			if (currentTime <= 20f)
-			{
-				timeTxt.color = Color.red;
-			}
-		}
-
-		if (nameChk && (curTime - 1f > time))
-		{
-			nameTxt.SetActive(false);
 		}
 	}
     private void UpdateTimeText()
@@ -100,56 +89,34 @@ public class gameManager : MonoBehaviour
 		string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 		string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
+
+		click += 1;
+		clickTxt.text = click.ToString("");
+
 		if (firstCardImage == secondCardImage) 
 		{
-            audioSource.PlayOneShot(correctSound); //¸ÂÃèÀ»¶§ »ç¿îµå Ãß°¡
+            audioSource.PlayOneShot(correctSound); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             firstCard.GetComponent<card>().destroyCard();
 			secondCard.GetComponent<card>().destroyCard();
+            int cardsLeft = GameObject.Find("cards").transform.childCount;
 
-			int cardsLeft = GameObject.Find("cards").transform.childCount;
-
-			if (firstCardImage[4] - '0' >= 0 && firstCardImage[4] - '0' < 3)
-			{
-				nameTxt_name.text = "°­¼ºÈ£";
-				nameChk = true;
-				curTime = time;
-				nameTxt.SetActive(true);
-			}
-			else if (firstCardImage[4] - '0' >= 3 && firstCardImage[4] - '0' < 6)
-			{
-				nameTxt_name.text = "¹ÚÁ¤¿ì";
-				nameChk = true;
-				curTime = time;
-				nameTxt.SetActive(true);
-			}
-			else if (firstCardImage[4] - '0' >= 6 && firstCardImage[4] - '0' < 9)
-			{
-				nameTxt_name.text = "¹ÚÁ¾¼ö";
-				nameChk = true;
-				curTime = time;
-				nameTxt.SetActive(true);
-			}
-
-			if (cardsLeft == 2)
+			if(cardsLeft == 2)
 			{
 				Time.timeScale = 0f;
 				endTxt.SetActive(true);
+
 			}
 		}
 
 		else
 		{
-            audioSource.PlayOneShot(incorrectSound); //Æ²·ÈÀ»¶§ »ç¿îµå Ãß°¡
+            audioSource.PlayOneShot(incorrectSound); //Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+
             firstCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
 			secondCard.transform.Find("back").GetComponent<SpriteRenderer>().color = Color.gray;
             FailMatch();
-
-			nameTxt_name.text = "½ÇÆÐ!";
-			nameChk = true;
-			curTime = time;
-			nameTxt.SetActive(true);
-
-			firstCard.GetComponent<card>().closeCard();
+  
+            firstCard.GetComponent<card>().closeCard();
 			secondCard.GetComponent<card>().closeCard();
 		}
 
@@ -157,7 +124,7 @@ public class gameManager : MonoBehaviour
 		secondCard = null;
 	}
 
-    public void FailMatch() //¸ÂÃß±â ½ÇÆÐÇßÀ»¶§ÀÇ ¸Þ¼Òµå
+    public void FailMatch() //ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     {
         isMatching = true;
         currentTime -= 3f;
